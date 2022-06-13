@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 // Diese Klasse soll die Verbindung zur Datenbank initialisieren
@@ -14,6 +15,7 @@ public class Connector {
 	static String URL = "jdbc:mysql://Localhost:3306/fluege";
 	static String user = "root";
 	static String password = "fabian";
+	static Connection conn;
 	
 	public static void main(String[] args) {
 		
@@ -24,17 +26,36 @@ public class Connector {
 		
 		try {
 			// Connection ist die Klasse von Java für Datenbankverbindungen
-			Connection conn = DriverManager.getConnection(URL, user, password);
+			conn = DriverManager.getConnection(URL, user, password);
 			// Mit prepareStatement können wir einen SQL-Befehl per String speichern
-			PreparedStatement ps = conn.prepareStatement("Select * From stadt");
+			PreparedStatement ps = conn.prepareStatement("Select * From pilot");
 			// Wenn wir das PreparedStatement ausführen, erhalten wir als antwort
 			// ein "ResultSet" - im Prinzip handelt es sich um eine Tabelle
 			ResultSet result = ps.executeQuery();
 			
+			ArrayList<Pilot> piloten = new ArrayList<>();
+			
 			// Mit next() springen wir in die nächste Zeile der Ergebnistabelle
 			while (result.next()) {
-				System.out.println(result.getString("name"));
+				
+				int pilotNr = result.getInt("pilotNr");
+				String vorname = result.getString("vorname");
+				String nachname = result.getString("nachname");
+				Pilot p = new Pilot(pilotNr, nachname, vorname);
+				piloten.add(p);
 			}
+			
+			for (Pilot p : piloten) {
+				System.out.println(p);
+			}
+			
+			Pilot pilot = new Pilot(7, "Schulte", "Franz");
+			piloten.add(pilot);
+			
+			for (Pilot p : piloten) {
+				p.toDataBase();
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
