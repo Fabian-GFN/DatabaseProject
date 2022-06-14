@@ -15,7 +15,7 @@ public class Pilot extends DatabaseObject {
 	private String nachname;
 	private String vorname;
 	
-	/* Konstrukor ist private - Objecte müssen mit der Methode createPilot erzeugt werden */
+	/* Konstruktor ist private - Objecte müssen mit der Methode createPilot erzeugt werden */
 	private Pilot(int pilotNr, String nachname, String vorname) {
 		this.pilotNr = pilotNr;
 		this.setNachname(nachname);
