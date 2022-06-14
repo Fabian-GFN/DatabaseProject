@@ -16,6 +16,7 @@ public class Connector {
 	static String user = "root";
 	static String password = "fabian";
 	static Connection conn;
+	static ArrayList<Pilot> piloten;
 	
 	public static void main(String[] args) {
 		
@@ -33,27 +34,27 @@ public class Connector {
 			// ein "ResultSet" - im Prinzip handelt es sich um eine Tabelle
 			ResultSet result = ps.executeQuery();
 			
-			ArrayList<Pilot> piloten = new ArrayList<>();
+			piloten = new ArrayList<>();
 			
 			// Mit next() springen wir in die nächste Zeile der Ergebnistabelle
 			while (result.next()) {
-				
-				int pilotNr = result.getInt("pilotNr");
-				String vorname = result.getString("vorname");
-				String nachname = result.getString("nachname");
-				Pilot p = new Pilot(pilotNr, nachname, vorname);
-				piloten.add(p);
+				Pilot.fromDatabase(result);				
 			}
+			
+
+			
+			Pilot.createPilot(4, "Schulte", "Franz");
+
+
+			
+			piloten.get(2).setVorname("Willi");
+			for (Pilot p : piloten) {
+				p.toDatabase();
+			}
+			
 			
 			for (Pilot p : piloten) {
 				System.out.println(p);
-			}
-			
-			Pilot pilot = new Pilot(7, "Schulte", "Franz");
-			piloten.add(pilot);
-			
-			for (Pilot p : piloten) {
-				p.toDataBase();
 			}
 			
 		} catch (SQLException e) {
