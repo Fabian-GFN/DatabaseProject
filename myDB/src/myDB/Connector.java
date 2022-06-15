@@ -4,9 +4,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 
 // Diese Klasse soll die Verbindung zur Datenbank initialisieren
@@ -15,8 +14,8 @@ public class Connector {
 	// Diese Strings benötigen wir für die Verbindung
 	// jdbc:mysql ist der Treiber
 	private static String URL = "jdbc:mysql://Localhost:3306/fluege";
-	private static String user = "root";
-	private static String password = "fabian";
+	private static String user = JOptionPane.showInputDialog("Bitte geben Sie den Nutzernamen ein");
+	private static String password = JOptionPane.showInputDialog("Bitte geben Sie ihr Passwort ein");
 	private static Connection conn;
 
 	public static ResultSet commit(String statement) throws SQLException {

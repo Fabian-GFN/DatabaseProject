@@ -9,13 +9,12 @@ public class Control {
 			Connector.init();
 			DataManager.datenLesen();
 			
-			HauptFenster fenster = new HauptFenster();
+			new HauptFenster();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Ho!");
 	}
 
 }

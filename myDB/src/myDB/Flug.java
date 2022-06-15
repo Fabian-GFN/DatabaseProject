@@ -117,20 +117,20 @@ public class Flug extends DatabaseObject {
 		}
 	}
 
-	public static void fromDatabase(ResultSet result) throws SQLException {
-		String flugNr = result.getString("flugNr");
-		LocalDateTime abflug = LocalDateTime.parse(result.getString("abflug"), format);
-		double dauer = result.getDouble("dauer");
-		Flugzeug flugzeug = flugzeugAusListe("'"+result.getString("flugzeugNr")+"'");
-		Stadt vonStadt = stadtAusListe(result.getInt("von"));
-		Stadt nachStadt = stadtAusListe(result.getInt("nach"));
+	public static void fromDatabase(ResultSet flugAusDatenbank) throws SQLException {
+		String flugNr = flugAusDatenbank.getString("flugNr");
+		LocalDateTime abflug = LocalDateTime.parse(flugAusDatenbank.getString("abflug"), format);
+		double dauer = flugAusDatenbank.getDouble("dauer");
+		Flugzeug flugzeug = flugzeugAusListe("'"+flugAusDatenbank.getString("flugzeugNr")+"'");
+		Stadt vonStadt = stadtAusListe(flugAusDatenbank.getInt("von"));
+		Stadt nachStadt = stadtAusListe(flugAusDatenbank.getInt("nach"));
 		ArrayList<Pilot> piloten = new ArrayList<>();
 
 		String statement = "SELECT pilotNr FROM flug_Pilot WHERE flugNr = '" + flugNr+"'";
 		ResultSet pilotenAusDatenbank = commit(statement);
 
 		while (pilotenAusDatenbank.next()) {
-			piloten.add(pilotAusListe(result.getInt(1)));
+			piloten.add(pilotAusListe(pilotenAusDatenbank.getInt(1)));
 		}
 		new Flug(flugNr, abflug, dauer, flugzeug, vonStadt, nachStadt, piloten);
 
