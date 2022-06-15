@@ -3,6 +3,7 @@ package myDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import static myDB.DataManager.*;
 import static myDB.Connector.*;
@@ -16,6 +17,8 @@ public class Flug extends DatabaseObject {
 	private Stadt von;
 	private Stadt nach;
 	private ArrayList<Pilot> flugPiloten;
+	
+	private static DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	private Flug(String flugNr, LocalDateTime abflug, double dauer, Flugzeug flugzeug, Stadt von, Stadt nach,
 			ArrayList<Pilot> flugPiloten) {
@@ -116,14 +119,14 @@ public class Flug extends DatabaseObject {
 
 	public static void fromDatabase(ResultSet result) throws SQLException {
 		String flugNr = result.getString("flugNr");
-		LocalDateTime abflug = LocalDateTime.parse(result.getString("abflug"));
+		LocalDateTime abflug = LocalDateTime.parse(result.getString("abflug"), format);
 		double dauer = result.getDouble("dauer");
 		Flugzeug flugzeug = flugzeugAusListe(result.getString("flugzeugNr"));
 		Stadt vonStadt = stadtAusListe(result.getInt("von"));
 		Stadt nachStadt = stadtAusListe(result.getInt("nach"));
 		ArrayList<Pilot> piloten = new ArrayList<>();
 
-		String statement = "SELECT pilotNr FROM flug_Pilot WHERE flugNr = " + flugNr;
+		String statement = "SELECT pilotNr FROM flug_Pilot WHERE flugNr = '" + flugNr+"'";
 		ResultSet pilotenAusDatenbank = commit(statement);
 
 		while (pilotenAusDatenbank.next()) {
@@ -139,8 +142,7 @@ public class Flug extends DatabaseObject {
 
 	@Override
 	public String getDeleteStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return "DELETE FROM flug WHERE FlugNr = "+ this.getFlugNr();
 	}
 
 	@Override
