@@ -18,9 +18,14 @@ public class Connector {
 	private static String password = JOptionPane.showInputDialog("Bitte geben Sie ihr Passwort ein");
 	private static Connection conn;
 
-	public static ResultSet commit(String statement) throws SQLException {
+	public static ResultSet commitWithResult(String statement) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement(statement);
 		return ps.executeQuery();
+	}
+	
+	public static void commitWithoutResult(String statement) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(statement);
+		ps.execute();
 	}
 	
 	public static boolean exists(DatabaseObject o) throws SQLException {
@@ -34,7 +39,7 @@ public class Connector {
 		} else {
 			statement = "SELECT flugNr FROM flug WHERE flugNr ="+ ((Flug)o).getFlugNr();
 		}
-		ResultSet result = commit(statement);
+		ResultSet result = commitWithResult(statement);
 		return result.next()? true : false;
 	}
 	

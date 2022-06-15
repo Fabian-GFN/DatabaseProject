@@ -13,14 +13,14 @@ public abstract class DatabaseObject {
 	
 	public void toDatabase() throws SQLException {
 		if (!exists(this)) {
-			commit(getInsertStatement());
+			commitWithoutResult(getInsertStatement());
 		} else {
-			commit(getUpdateStatement());
+			commitWithoutResult(getUpdateStatement());
 		}
 	};
 	
 	public void delete() throws SQLException {
-		commit(getDeleteStatement());
+		commitWithoutResult(getDeleteStatement());
 		objektEntfernen(this);
 	}
 	

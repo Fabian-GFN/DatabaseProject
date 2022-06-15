@@ -6,12 +6,16 @@ import java.util.ArrayList;
 
 public class DataManager {
 	
-	public static ArrayList<Pilot> piloten = new ArrayList<>();
-	public static ArrayList<Flugzeug> flugzeuge = new ArrayList<>();
-	public static ArrayList<Stadt> staedte = new ArrayList<>();
-	public static ArrayList<Flug> fluege = new ArrayList<>();
+	public static ArrayList<Pilot> piloten;
+	public static ArrayList<Flugzeug> flugzeuge;
+	public static ArrayList<Stadt> staedte;
+	public static ArrayList<Flug> fluege;
 	
 	public static void datenLesen() throws SQLException{
+		piloten = new ArrayList<>();
+		flugzeuge = new ArrayList<>();
+		staedte = new ArrayList<>();
+		fluege = new ArrayList<>();
 		pilotenLaden();
 		flugzeugeLaden();
 		staedteLaden();
@@ -20,7 +24,7 @@ public class DataManager {
 
 	private static void fluegeLaden() throws SQLException {
 		String statement = "SELECT * FROM flug";
-		ResultSet result = Connector.commit(statement);
+		ResultSet result = Connector.commitWithResult(statement);
 		while (result.next()) {
 			Flug.fromDatabase(result);
 		}
@@ -29,7 +33,7 @@ public class DataManager {
 
 	private static void staedteLaden() throws SQLException {
 		String statement = "SELECT * FROM stadt";
-		ResultSet result = Connector.commit(statement);
+		ResultSet result = Connector.commitWithResult(statement);
 		while (result.next()) {
 			Stadt.fromDatabase(result);
 		}		
@@ -37,7 +41,7 @@ public class DataManager {
 
 	private static void flugzeugeLaden() throws SQLException {
 		String statement = "SELECT * FROM flugzeug";
-		ResultSet result = Connector.commit(statement);
+		ResultSet result = Connector.commitWithResult(statement);
 		while (result.next()) {
 			Flugzeug.fromDatabase(result);
 		}		
@@ -45,7 +49,7 @@ public class DataManager {
 
 	private static void pilotenLaden() throws SQLException{
 		String statement = "SELECT * FROM pilot";
-		ResultSet result = Connector.commit(statement);
+		ResultSet result = Connector.commitWithResult(statement);
 		while (result.next()) {
 			Pilot.fromDatabase(result);
 		}		

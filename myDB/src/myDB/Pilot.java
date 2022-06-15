@@ -14,7 +14,7 @@ public class Pilot extends DatabaseObject {
 	private String nachname;
 	private String vorname;
 	
-	public Pilot(int pilotNr, String nachname, String vorname) {
+	public Pilot(int pilotNr, String nachname, String vorname) throws SQLException {
 		this.pilotNr = pilotNr;
 		this.setNachname(nachname);
 		this.setVorname(vorname);

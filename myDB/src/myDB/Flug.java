@@ -89,30 +89,30 @@ public class Flug extends DatabaseObject {
 	@Override
 	public void toDatabase() throws SQLException {
 		String statement = "SELECT flugNr FROM Flug WHERE flugNr = " + this.getFlugNr();
-		ResultSet result = commit(statement);
+		ResultSet result = commitWithResult(statement);
 
 		if (result.next() == false) {
 			statement = "INSERT INTO Flug VALUES (" + this.getFlugNr() + ", " + this.getAbflug().format(format) + ", "
 					+ this.getDauer() + ", " + this.getFlugzeug().getFlugzeugNr() + ", " + this.getVon().getStadtNr()
 					+ ", " + this.getNach().getStadtNr() + ")";
-			commit(statement);
+			commitWithoutResult(statement);
 
 			for (Pilot p : this.getFlugPiloten()) {
 				statement = "INSERT INTO flug_pilot VALUES (" + this.getFlugNr() + ", " + p.getPilotNr() + ")";
-				commit(statement);
+				commitWithoutResult(statement);
 			}
 		} else {
 			statement = "UPDATE Flug SET Abflug = " + this.getAbflug().format(format) + ", dauer = " + this.getDauer() + ", flugzeug ="
 					+ this.getFlugzeug().getFlugzeugNr() + ", von =" + this.getVon().getStadtNr() + ", nach ="
 					+ this.getNach().getStadtNr() + " WHERE flugNr = " + this.getFlugNr();
-			commit(statement);
+			commitWithoutResult(statement);
 
 			statement = "DELETE FROM flug_pilot WHERE flugNr = " + this.getFlugNr();
-			commit(statement);
+			commitWithoutResult(statement);
 
 			for (Pilot p : this.getFlugPiloten()) {
 				statement = "INSERT INTO flug_pilot VALUES (" + this.getFlugNr() + ", " + p.getPilotNr() + ")";
-				commit(statement);
+				commitWithoutResult(statement);
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class Flug extends DatabaseObject {
 		ArrayList<Pilot> piloten = new ArrayList<>();
 
 		String statement = "SELECT pilotNr FROM flug_Pilot WHERE flugNr = '" + flugNr+"'";
-		ResultSet pilotenAusDatenbank = commit(statement);
+		ResultSet pilotenAusDatenbank = commitWithResult(statement);
 
 		while (pilotenAusDatenbank.next()) {
 			piloten.add(pilotAusListe(pilotenAusDatenbank.getInt(1)));

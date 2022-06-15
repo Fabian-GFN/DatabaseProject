@@ -8,7 +8,6 @@ public class Piloten_Tabelle extends JTable {
 	
 	static Object[] columns = {"PilotenNummer", "Nachname", "Vorname"};
 	static Object[][] rowData = new Object[piloten.size()][];
-	private static JScrollPane tableBox = new JScrollPane(new Piloten_Tabelle());
 	
 	static {
 		for (int i = 0; i < piloten.size(); i++) {
@@ -23,7 +22,7 @@ public class Piloten_Tabelle extends JTable {
 	}
 
 	public static JScrollPane getTableBox() {
-		return tableBox;
+		return new JScrollPane(new Piloten_Tabelle());
 	}
 	
 	
