@@ -15,7 +15,6 @@ public class Control {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Hey!");
 	}
 
 }
