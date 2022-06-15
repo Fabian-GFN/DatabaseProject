@@ -92,7 +92,7 @@ public class Flug extends DatabaseObject {
 		ResultSet result = commit(statement);
 
 		if (result.next() == false) {
-			statement = "INSERT INTO Flug VALUES (" + this.getFlugNr() + ", " + this.getAbflug() + ", "
+			statement = "INSERT INTO Flug VALUES (" + this.getFlugNr() + ", " + this.getAbflug().format(format) + ", "
 					+ this.getDauer() + ", " + this.getFlugzeug().getFlugzeugNr() + ", " + this.getVon().getStadtNr()
 					+ ", " + this.getNach().getStadtNr() + ")";
 			commit(statement);
@@ -102,7 +102,7 @@ public class Flug extends DatabaseObject {
 				commit(statement);
 			}
 		} else {
-			statement = "UPDATE Flug SET Abflug = " + this.getAbflug() + ", dauer = " + this.getDauer() + ", flugzeug ="
+			statement = "UPDATE Flug SET Abflug = " + this.getAbflug().format(format) + ", dauer = " + this.getDauer() + ", flugzeug ="
 					+ this.getFlugzeug().getFlugzeugNr() + ", von =" + this.getVon().getStadtNr() + ", nach ="
 					+ this.getNach().getStadtNr() + " WHERE flugNr = " + this.getFlugNr();
 			commit(statement);

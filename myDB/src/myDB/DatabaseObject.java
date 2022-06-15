@@ -12,7 +12,7 @@ public abstract class DatabaseObject {
 	public abstract String getUpdateStatement();
 	
 	public void toDatabase() throws SQLException {
-		if (exists(this)) {
+		if (!exists(this)) {
 			commit(getInsertStatement());
 		} else {
 			commit(getUpdateStatement());
