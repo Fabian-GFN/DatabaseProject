@@ -130,7 +130,7 @@ public class Flug extends DatabaseObject {
 		ResultSet pilotenAusDatenbank = commit(statement);
 
 		while (pilotenAusDatenbank.next()) {
-			piloten.add(pilotAusListe(pilotenAusDatenbank.getInt(1)));
+			piloten.add(pilotAusListe(result.getInt(1)));
 		}
 		new Flug(flugNr, abflug, dauer, flugzeug, vonStadt, nachStadt, piloten);
 
