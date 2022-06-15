@@ -9,22 +9,8 @@ public class Control {
 			Connector.init();
 			DataManager.datenLesen();
 			
-			System.out.println("Flugzeuge: ");
-			for (Flugzeug f : DataManager.flugzeuge) {
-				System.out.println(f.getTyp());
-			}
-			System.out.println("Staedte: ");
-			for (Stadt st : DataManager.staedte) {
-				System.out.println(st.getName());
-			}
-			System.out.println("Piloten: ");
-			for (Pilot p : DataManager.piloten) {
-				System.out.println(p);
-			}
-			System.out.println("Fluege: ");
-			for (Flug f : DataManager.fluege) {
-				System.out.println(f.getFlugNr());
-			}
+			HauptFenster fenster = new HauptFenster();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

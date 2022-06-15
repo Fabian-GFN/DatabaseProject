@@ -121,7 +121,7 @@ public class Flug extends DatabaseObject {
 		String flugNr = result.getString("flugNr");
 		LocalDateTime abflug = LocalDateTime.parse(result.getString("abflug"), format);
 		double dauer = result.getDouble("dauer");
-		Flugzeug flugzeug = flugzeugAusListe(result.getString("flugzeugNr"));
+		Flugzeug flugzeug = flugzeugAusListe("'"+result.getString("flugzeugNr")+"'");
 		Stadt vonStadt = stadtAusListe(result.getInt("von"));
 		Stadt nachStadt = stadtAusListe(result.getInt("nach"));
 		ArrayList<Pilot> piloten = new ArrayList<>();
@@ -130,11 +130,7 @@ public class Flug extends DatabaseObject {
 		ResultSet pilotenAusDatenbank = commit(statement);
 
 		while (pilotenAusDatenbank.next()) {
-			for (Pilot p : piloten) {
-				if (p.getPilotNr() == pilotenAusDatenbank.getInt(0)) {
-					piloten.add(p);
-				}
-			}
+			piloten.add(pilotAusListe(result.getInt(1)));
 		}
 		new Flug(flugNr, abflug, dauer, flugzeug, vonStadt, nachStadt, piloten);
 

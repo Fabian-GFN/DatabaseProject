@@ -75,5 +75,14 @@ public class DataManager {
 		}
 		return null;
 	}
+	
+	public static Pilot pilotAusListe(int pilotNr) {
+		for (Pilot p : piloten) {
+			if (p.getPilotNr() == pilotNr) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 }
