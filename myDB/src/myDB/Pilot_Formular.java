@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 @SuppressWarnings("serial")
 public class Pilot_Formular extends JFrame {
 
+	public static Pilot_Formular instance;
 	String[] labels = {"PilotenNummer", "Nachname", "Vorname"};
 	public Pilot_Formular() {
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -42,6 +43,10 @@ public class Pilot_Formular extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-
+		instance = this;
+	}
+	
+	public static void close() {
+		instance.dispose();
 	}
 }

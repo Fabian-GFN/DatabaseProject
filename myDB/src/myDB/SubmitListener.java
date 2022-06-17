@@ -12,6 +12,7 @@ public class SubmitListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		Pilot_Formular.close();
 		Component component = (Component)event.getSource();
 		Container parent = component.getParent();
 		JTextField textfield = (JTextField)parent.getComponent(2);

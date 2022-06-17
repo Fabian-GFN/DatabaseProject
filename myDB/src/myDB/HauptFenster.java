@@ -47,6 +47,5 @@ public class HauptFenster extends JFrame {
 		instance.add(Fluege_Tabelle.getTableBox());
 		instance.add(MenueLeiste.getButtonBox());
 		instance.revalidate();
-		instance.repaint();
 	}
 }
